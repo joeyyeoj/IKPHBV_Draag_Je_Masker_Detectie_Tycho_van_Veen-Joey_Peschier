@@ -14,7 +14,7 @@ Deze hebben wij overgenomen en allereerst werkend gemaakt op onze computers.
 Als het programma heeft bepaald of de gebruiker wel of geen mondkapje op heeft, laat deze een van de onderstaande schermen zien:
 Wel een mondkapje op       |  Geen mondkapje op
 :-------------------------:|:-------------------------:
-![](groen.png)             |  ![](rood.png)
+![](./Programma/groen.png)             |  ![](./Programma/rood.png)
 
 
 Vervolgens leggen wij het frame met het gezicht van de gedetecteerde persoon over deze afbeelding heen, dit geheel laten we vervolgens zien in een window.
