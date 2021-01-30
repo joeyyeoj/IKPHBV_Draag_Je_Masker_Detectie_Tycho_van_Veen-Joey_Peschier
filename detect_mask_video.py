@@ -12,6 +12,19 @@ import imutils
 import time
 import cv2
 import os
+import winsound
+
+#lees groene plaatje in
+img_goed = cv2.imread('groen.png')
+#lees rode plaatje in
+img_fout = cv2.imread('rood.png')
+masker = False
+last_mask = False
+
+l_img = img_goed
+sound = None
+
+
 
 def detect_and_predict_mask(frame, faceNet, maskNet):
 	# grab the dimensions of the frame and then construct a blob
@@ -95,7 +108,7 @@ maskNet = load_model(args["model"])
 
 # initialize the video stream and allow the camera sensor to warm up
 print("[INFO] starting video stream...")
-vs = cv2.VideoCapture(0,cv2.CAP_DSHOW)
+vs = cv2.VideoCapture(1,cv2.CAP_DSHOW)
 time.sleep(2.0)
 
 # loop over the frames from the video stream
@@ -122,20 +135,34 @@ while True:
 
 		# determine the class label and color we'll use to draw
 		# the bounding box and text
-		label = "Mask" if mask > withoutMask else "No Mask"
-		color = (0, 255, 0) if label == "Mask" else (0, 0, 255)
+		last_mask = masker
 
-		# include the probability in the label
-		label = "{}: {:.2f}%".format(label, max(mask, withoutMask) * 100)
+		if mask > withoutMask:
+			color = (0, 255, 0)
+			l_img = img_goed
+			masker = True
+			#hieronder een string met de locatie van het bestand dat afgespeeld moet worden als iemand een masker op heeft
+			sound = 'C:/Users/joeyp/Desktop/IKPHBV_Project/IKPHBV_Draag_Je_Masker_Detectie_Tycho_van_Veen-Joey_Peschier/applause.wav'
+		else:
+			l_img = img_fout
+			color = (0, 0, 255)
+			masker = False
+			# hieronder een string met de locatie van het bestand dat afgespeeld moet worden als iemand geen masker op heeft
+			sound = 'C:/Users/joeyp/Desktop/IKPHBV_Project/IKPHBV_Draag_Je_Masker_Detectie_Tycho_van_Veen-Joey_Peschier/beep.wav'
 
-		# display the label and bounding box rectangle on the output
-		# frame
-		cv2.putText(frame, label, (startX, startY - 10),
-			cv2.FONT_HERSHEY_SIMPLEX, 0.45, color, 2)
+		#als de laatste keer dat er werd gecheckt de 'masker-status' anders is dan nu, speel geluid af.
+		if last_mask != masker:
+			winsound.PlaySound(sound,  winsound.SND_ASYNC)
+
+
 		cv2.rectangle(frame, (startX, startY), (endX, endY), color, 2)
 
 	# show the output frame
-	cv2.imshow("Frame", frame)
+	s_img = frame
+	x_offset = 50
+	y_offset = 50
+	l_img[y_offset:y_offset + s_img.shape[0], x_offset:x_offset + s_img.shape[1]] = s_img
+	cv2.imshow("Frame", l_img)
 	key = cv2.waitKey(1) & 0xFF
 
 	# if the `q` key was pressed, break from the loop
