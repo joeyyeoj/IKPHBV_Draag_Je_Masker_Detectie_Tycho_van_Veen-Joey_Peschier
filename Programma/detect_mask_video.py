@@ -142,13 +142,13 @@ while True:
 			l_img = img_goed
 			masker = True
 			#hieronder een string met de locatie van het bestand dat afgespeeld moet worden als iemand een masker op heeft
-			sound = 'C:/Users/joeyp/Desktop/IKPHBV_Project/IKPHBV_Draag_Je_Masker_Detectie_Tycho_van_Veen-Joey_Peschier/applause.wav'
+			sound = 'C:/Users/joeyp/Desktop/IKPHBV_Project/Programma/IKPHBV_Draag_Je_Masker_Detectie_Tycho_van_Veen-Joey_Peschier/applause.wav'
 		else:
 			l_img = img_fout
 			color = (0, 0, 255)
 			masker = False
 			# hieronder een string met de locatie van het bestand dat afgespeeld moet worden als iemand geen masker op heeft
-			sound = 'C:/Users/joeyp/Desktop/IKPHBV_Project/IKPHBV_Draag_Je_Masker_Detectie_Tycho_van_Veen-Joey_Peschier/beep.wav'
+			sound = 'C:/Users/joeyp/Desktop/IKPHBV_Project/Programma/IKPHBV_Draag_Je_Masker_Detectie_Tycho_van_Veen-Joey_Peschier/beep.wav'
 
 		#als de laatste keer dat er werd gecheckt de 'masker-status' anders is dan nu, speel geluid af.
 		if last_mask != masker:
