@@ -45,10 +45,10 @@ Zoals hier boven te zien doet het programma het best heel redelijk in het donker
 
 
 
-![](./readme-afbeeldingen/zwart_mondkapje_voorbeeld.png) 
-
 ### Andere kleuren mondkapjes
 De dataset die we hebben gebruikt bestaat uit foto's waar met de computer een mondkapje over heen is geplakt, dit zijn altijd witte mondkapjes, hierdoor is het programma slecht in het detecteren van bijvoorbeeld een zwart mondkapje. Dit zou opgelost kunnen worden door een aantal zwarte mondkapjes toe te voegen in de dataset, maar de maker van het programma gaf aan dat dit problemen oplevert wanneer het probeert een mondkapje te detecteren op iemand met een baard.
+
+![](./readme-afbeeldingen/zwart_mondkapje_voorbeeld.png) 
 
 
 
