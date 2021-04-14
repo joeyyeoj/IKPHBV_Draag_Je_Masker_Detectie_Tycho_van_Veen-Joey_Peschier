@@ -13,6 +13,7 @@ import time
 import cv2
 import os
 import winsound
+import pandas as pd
 
 #lees groene plaatje in
 img_goed = cv2.imread('groen.png')
@@ -24,6 +25,9 @@ masker = False
 last_mask = False
 l_img = img_geen
 sound = None
+wel_op = 0
+niet_op = 0
+frames = 0
 
 face_detected = False
 
@@ -136,17 +140,22 @@ while True:
 			color = (0, 255, 0)
 			l_img = img_goed
 			masker = True
+			wel_op += 1
+			frames +=1
 			#hieronder een string met de locatie van het bestand dat afgespeeld moet worden als iemand een masker op heeft
 			sound = 'C:/Users/joeyp/Desktop/IKPHBV_Project/IKPHBV_Draag_Je_Masker_Detectie_Tycho_van_Veen-Joey_Peschier/Programma/applause.wav'
 		elif withoutMask > mask:
 			l_img = img_fout
 			color = (0, 0, 255)
 			masker = False
+			niet_op += 1
+			frames += 1
 			# hieronder een string met de locatie van het bestand dat afgespeeld moet worden als iemand geen masker op heeft
 			sound = 'C:/Users/joeyp/Desktop/IKPHBV_Project/IKPHBV_Draag_Je_Masker_Detectie_Tycho_van_Veen-Joey_Peschier/Programma/beep.wav'
 		#als de laatste keer dat er werd gecheckt de 'masker-status' anders is dan nu, speel geluid af.
 		if last_mask != masker:
 			winsound.PlaySound(sound,  winsound.SND_ASYNC)
+
 
 
 		cv2.rectangle(frame, (startX, startY), (endX, endY), color, 2)
@@ -161,6 +170,16 @@ while True:
 
 	# if the `q` key was pressed, break from the loop
 	if key == ord("q"):
+		d = {wel_op/frames * 100, niet_op/frames * 100}
+		df = pd.DataFrame(data=d)
+		writer = pd.ExcelWriter('stats.xlsx', engine='xlsxwriter')
+		df.to_excel(writer, sheet_name='Sheet1')
+		workbook  = writer.book
+		worksheet = writer.sheets['Sheet1']
+		chart = workbook.add_chart({'type': 'pie'})
+		chart.add_series({'values': '=Sheet1!$B$2:$B$3', 'data_labels': {'percentage': True}})
+		worksheet.insert_chart('D2', chart)
+		writer.save()
 		break
 
 # do a bit of cleanup
