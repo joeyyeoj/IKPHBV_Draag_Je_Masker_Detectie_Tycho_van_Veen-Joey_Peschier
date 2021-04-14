@@ -32,6 +32,17 @@ Als het programma heeft bepaald of de gebruiker wel of geen mondapje op heeft, s
 
 Hiervoor hebben we de module [winsound](https://docs.python.org/3/library/winsound.html) gebruikt.
 
+
+### Recovery
+De recovery in het programma is heel degelijk, hij kan je gezicht vrij snel weer detecteren, wel gebeurt het soms dat het programma na het recoveren vastloopt omdat het te veel inputs ontvangt
+
+### Performance in het donker
+Wel een mondkapje op       |  Geen mondkapje op
+:------------------------------------------------:|:------------------------------------------------:
+![](./readme-afbeeldingen/donker_voorbeeld.png)      |  ![](./readme-afbeeldingen/donker_voorbeeld_rood.png)  
+
+
+
 ## Uitdagingen :muscle:
 De uitdagingen lagen vooral bij het afspelen van het geluid op een redelijke manier, mede omdat we eerst de module [playsound](https://pypi.org/project/playsound/) wilde gebruiken, het afspelen met deze module is erg makkelijk maar helaas leverde dit wat problemen op, zo speelde het geluid zichzelf tijdens elke frame die het programma detecteerde opnieuw af, ook hadden we met deze module het probleem dat geluiden tegelijk af werden gespeeld, waardoor iemand die door het scherm toch zijn mondkapje op heeft gezet door het applaus heen nog steeds een negatief geluid kreeg te horen.<br><br>
 Uiteindelijk zijn we overgestapt op winsound, deze module heeft wat meer mogelijkheden betreft het afspelen van een geluid, zo kan er worden gekozen om de flag 'SND_ASYNC' aan te zetten, dit zorgt er voor dat het programma niet hoeft te wachten tot het audiobestand helemaal is afgespeeld. <br><br>
